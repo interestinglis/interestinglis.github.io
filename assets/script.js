@@ -1,4 +1,4 @@
-//  CSV to JavaScript Array
+//  CSV to JS
 function parseCSV(csvText) {
     let lines = csvText.split("\n").map(line => line.trim());
     let headers = lines[0].split(",");
@@ -13,7 +13,7 @@ function parseCSV(csvText) {
 
 const schedule = parseCSV(csvData);
 
-// Room Filtering Logic
+// Room Filtering
 function findEmptyRooms(day, periods) {
     const startingPeriodCol = "Tiết BD";
     const durationCol = "ST";
@@ -74,7 +74,7 @@ function findEmptyRooms(day, periods) {
     return normalRooms.concat(markedRooms);
 }
 
-//  Form Submission
+//  Form Submit
 document.getElementById("roomForm").addEventListener("submit", function(event) {
     event.preventDefault();
 
@@ -115,7 +115,7 @@ document.getElementById("roomForm").addEventListener("submit", function(event) {
     });
 });
 
-// 📌 Function to Get Room Usage (Strictly Follows Python Logic)
+// 📌 Function to Get Room Usage (Python Logic)
 function getRoomUsage(csvData, room) {
     let data = parseCSV(csvData);  // Convert CSV data to JavaScript array
 
@@ -133,7 +133,7 @@ function getRoomUsage(csvData, room) {
         }
     }
 
-    // 📌 Filter data for the specified room
+    //  Filter data for the specified room
     let roomData = data.filter(entry => entry[roomCol] === room);
 
     if (roomData.length === 0) {
@@ -141,7 +141,7 @@ function getRoomUsage(csvData, room) {
         return;
     }
 
-    // 📌 Remove duplicates based on [dayCol, startingPeriodCol, durationCol]
+    //  Remove duplicates based on [dayCol, startingPeriodCol, durationCol]
     let uniqueRoomData = [];
     let seen = new Set();
     roomData.forEach(entry => {
@@ -152,21 +152,21 @@ function getRoomUsage(csvData, room) {
         }
     });
 
-    // 📌 Convert periods to numeric & clean data
+    //  Convert periods to numeric & clean data
     uniqueRoomData.forEach(entry => {
         entry[startingPeriodCol] = parseInt(entry[startingPeriodCol]);
         entry[durationCol] = parseInt(entry[durationCol]);
     });
 
-    // 📌 Remove invalid rows
+    //  Remove invalid rows
     uniqueRoomData = uniqueRoomData.filter(entry => !isNaN(entry[startingPeriodCol]) && !isNaN(entry[durationCol]));
 
-    // 📌 Calculate used periods for each entry
+    //  Calculate used periods for each entry
     uniqueRoomData.forEach(entry => {
         entry["Used Periods"] = Array.from({ length: entry[durationCol] }, (_, i) => entry[startingPeriodCol] + i);
     });
 
-    // 📌 Display the room usage
+    //  Display the room usage
     let daysOfWeek = ['Hai', 'Ba', 'Tư', 'Năm', 'Sáu', 'Bảy'];
     let roomUsageHTML = `<h3>Các tiết sử dụng phòng ${room}:</h3>`;
 
@@ -217,7 +217,7 @@ setTimeout(() => {
 ;
 }
 
-// 📌 Handle Room Click Event
+//  Handle Room Click Event
 document.getElementById("result").addEventListener("click", function(event) {
     if (event.target.tagName === "LI") {
         let room = event.target.textContent.split("*")[0].trim();  // Remove marker (*) and get room name
