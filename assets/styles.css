@@ -36,6 +36,9 @@ form {
 .form-group {
     margin-bottom: 20px;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 /* Dropdown styling */
@@ -45,24 +48,31 @@ select {
     font-size: 16px;
 }
 
-/* Checkbox group (vertical layout for mobile) */
+/* Checkbox group (2-column layout) */
+/* Checkbox group (2-column layout) */
 .checkbox-group {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    justify-content: center;
+    gap: 70px; /* Space between columns */
+    width: 100%;
+    margin: 0 auto;
+    padding: 10px;
 }
 
-/* Style checkboxes */
-.checkbox-group label {
+/* Wrap checkboxes in separate columns */
+.checkbox-column {
     display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 5px;
-    font-size: 16px;
+    flex-direction: column;
+    gap: 8px; /* Space between checkboxes */
+    align-items: flex-start; /* Ensure checkboxes and labels are aligned left */
 }
 
-.checkbox-group input {
-    transform: scale(1.2); /* Make checkboxes larger */
+
+/* Make checkboxes responsive */
+@media (max-width: 330px) {
+    .checkbox-group {
+        grid-template-columns: 1fr; /* Switch to single column on very small screens */
+    }
 }
 
 /* Button Styling */
@@ -183,7 +193,7 @@ button:hover .arrow::before {
 
 /* Expanding animation */
 .expanded {
-    max-width: 330px !important;  
+    max-width: 380px !important;  
     max-height: 550px !important; 
     transition: max-width 0.5s ease-in-out, max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
 }
@@ -226,7 +236,7 @@ button:hover .arrow::before {
     cursor: pointer;
     transition: background 0.2s ease-in-out;
     padding: 10px 0;  /* Adds spacing between lines */
-    line-height: 0.3; /* Increases the spacing between lines */
+    line-height: 0.4; /* Increases the spacing between lines */
 }
 
 

@@ -1,4 +1,4 @@
-
+// 📌 Embedded CSV Data
 const csvData = `
 Mã MHBĐ,Mã MH,Tên môn học,NMH,TTH,STC,STCHP,Mã lớp,Sĩ số,CL,TH,Thứ,Tiết BD,ST,Phòng,Giảng viên,TG học
 BA005IU,BA005IU, Financial Accounting,3,,3,3,BABA21IU01,50,9,,Ba,7,3,A2.312,L.N.A.Khoa,03/02/2025--01/06/2025
@@ -556,24 +556,24 @@ IS027IU,IS027IU, Scheduling & Sequencing,1,,3,3,IEIE23IU11,85,49,,Ba,4,3,L201,P
 IS027IU,IS027IU, Scheduling & Sequencing,2,,3,3,IEIE23IU11,85,Hết,,Năm,4,3,A2.507,P.N.K.Phuc,03/02/2025--01/06/2025
 IS027IU,IS027IU, Scheduling & Sequencing,3,,3,3,IEIE23IU11,85,24,,Sáu,1,3,A2.401,P.N.K.Phuc,03/02/2025--01/06/2025
 IS027IU,IS027IU, Scheduling & Sequencing,4,,3,3,IEIE23IU11,85,18,,Sáu,4,3,A2.401,P.N.K.Phuc,03/02/2025--01/06/2025
-IS028IU,IS028IU, Simulation Models in Industrial Engineering,1,1,4,4,IEIE23IU21,30,Hết,*,,,,,,
-IS028IU,IS028IU, Simulation Models in Industrial Engineering,1,1,4,4,IEIE23IU21,30,Hết,*,Sáu,4,3,L202,P.H.Tram,03/02/2025--01/06/2025
-IS028IU,IS028IU, Simulation Models in Industrial Engineering,1,2,4,4,IEIE23IU21,30,Hết,*,,,,,,
-IS028IU,IS028IU, Simulation Models in Industrial Engineering,1,2,4,4,IEIE23IU21,30,Hết,*,Sáu,4,3,L202,P.H.Tram,03/02/2025--01/06/2025
-IS028IU,IS028IU, Simulation Models in Industrial Engineering,2,1,4,4,IEIE23IU21,30,Hết,*,,,,,,
-IS028IU,IS028IU, Simulation Models in Industrial Engineering,2,1,4,4,IEIE23IU21,30,Hết,*,Sáu,1,3,L202,P.H.Tram,03/02/2025--01/06/2025
-IS028IU,IS028IU, Simulation Models in Industrial Engineering,2,2,4,4,IEIE23IU21,30,Hết,*,,,,,,
-IS028IU,IS028IU, Simulation Models in Industrial Engineering,2,2,4,4,IEIE23IU21,30,Hết,*,Sáu,1,3,L202,P.H.Tram,03/02/2025--01/06/2025
-IS028IU,IS028IU, Simulation Models in Industrial Engineering,3,1,4,4,IEIE23IU21,30,1,*,,,,,,
-IS028IU,IS028IU, Simulation Models in Industrial Engineering,3,1,4,4,IEIE23IU21,30,1,*,Năm,1,3,L202,P.H.Tram,03/02/2025--01/06/2025
-IS028IU,IS028IU, Simulation Models in Industrial Engineering,3,2,4,4,IEIE23IU21,30,Hết,*,,,,,,
-IS028IU,IS028IU, Simulation Models in Industrial Engineering,3,2,4,4,IEIE23IU21,30,Hết,*,Năm,1,3,L202,P.H.Tram,03/02/2025--01/06/2025
-IS028IU,IS028IU, Simulation Models in Industrial Engineering,4,1,4,4,IEIE23IU21,30,2,*,,,,,,
-IS028IU,IS028IU, Simulation Models in Industrial Engineering,4,1,4,4,IEIE23IU21,30,2,*,Năm,7,3,L108,T.Đ.Vĩ,03/02/2025--01/06/2025
-IS028IU,IS028IU, Simulation Models in Industrial Engineering,5,1,4,4,IEIE23IU21,30,18,*,,,,,,
-IS028IU,IS028IU, Simulation Models in Industrial Engineering,5,1,4,4,IEIE23IU21,30,18,*,Sáu,4,3,L108,T.Đ.Vĩ,03/02/2025--01/06/2025
-IS028IU,IS028IU, Simulation Models in Industrial Engineering,5,2,4,4,IEIE23IU21,30,Hết,*,,,,,,
-IS028IU,IS028IU, Simulation Models in Industrial Engineering,5,2,4,4,IEIE23IU21,30,Hết,*,Sáu,4,3,L108,T.Đ.Vĩ,03/02/2025--01/06/2025
+IS028IU,IS028IU, Simulation (IE),1,1,4,4,IEIE23IU21,30,Hết,*,,,,,,
+IS028IU,IS028IU, Simulation (IE),1,1,4,4,IEIE23IU21,30,Hết,*,Sáu,4,3,L202,P.H.Tram,03/02/2025--01/06/2025
+IS028IU,IS028IU, Simulation (IE),1,2,4,4,IEIE23IU21,30,Hết,*,,,,,,
+IS028IU,IS028IU, Simulation (IE),1,2,4,4,IEIE23IU21,30,Hết,*,Sáu,4,3,L202,P.H.Tram,03/02/2025--01/06/2025
+IS028IU,IS028IU, Simulation (IE),2,1,4,4,IEIE23IU21,30,Hết,*,,,,,,
+IS028IU,IS028IU, Simulation (IE),2,1,4,4,IEIE23IU21,30,Hết,*,Sáu,1,3,L202,P.H.Tram,03/02/2025--01/06/2025
+IS028IU,IS028IU, Simulation (IE),2,2,4,4,IEIE23IU21,30,Hết,*,,,,,,
+IS028IU,IS028IU, Simulation (IE),2,2,4,4,IEIE23IU21,30,Hết,*,Sáu,1,3,L202,P.H.Tram,03/02/2025--01/06/2025
+IS028IU,IS028IU, Simulation (IE),3,1,4,4,IEIE23IU21,30,1,*,,,,,,
+IS028IU,IS028IU, Simulation (IE),3,1,4,4,IEIE23IU21,30,1,*,Năm,1,3,L202,P.H.Tram,03/02/2025--01/06/2025
+IS028IU,IS028IU, Simulation (IE),3,2,4,4,IEIE23IU21,30,Hết,*,,,,,,
+IS028IU,IS028IU, Simulation (IE),3,2,4,4,IEIE23IU21,30,Hết,*,Năm,1,3,L202,P.H.Tram,03/02/2025--01/06/2025
+IS028IU,IS028IU, Simulation (IE),4,1,4,4,IEIE23IU21,30,2,*,,,,,,
+IS028IU,IS028IU, Simulation (IE),4,1,4,4,IEIE23IU21,30,2,*,Năm,7,3,L108,T.Đ.Vĩ,03/02/2025--01/06/2025
+IS028IU,IS028IU, Simulation (IE),5,1,4,4,IEIE23IU21,30,18,*,,,,,,
+IS028IU,IS028IU, Simulation (IE),5,1,4,4,IEIE23IU21,30,18,*,Sáu,4,3,L108,T.Đ.Vĩ,03/02/2025--01/06/2025
+IS028IU,IS028IU, Simulation (IE),5,2,4,4,IEIE23IU21,30,Hết,*,,,,,,
+IS028IU,IS028IU, Simulation (IE),5,2,4,4,IEIE23IU21,30,Hết,*,Sáu,4,3,L108,T.Đ.Vĩ,03/02/2025--01/06/2025
 IS034IU,IS034IU, Product Design and Development,1,,3,3,IEIE23IU11,90,50,,Năm,1,3,L201,T.V.Ly,03/02/2025--01/06/2025
 IS041IU,IS041IU, Lean Production,1,,3,3,IEIE23IU11,90,2,,Ba,7,3,A2.401,T.Đ.Vĩ,03/02/2025--01/06/2025
 IS048IU,IS048IU, Thesis,1,,10,10,IEIE22IU11,52,15,,,0,0,,,03/02/2025--01/06/2025
@@ -585,10 +585,10 @@ IS068IU,IS068IU, Procurement Management,2,,3,3,IEIE22IU01,90,15,,Bảy,4,3,A1.2
 IS071IU,IS071IU, Thesis,1,,10,10,IEIE22IU11,200,44,,,0,0,,,03/02/2025--01/06/2025
 IS074IU,IS074IU, Import-Export Management,1,,3,3,IEIE22IU01,90,3,,Ba,7,3,A2.601,N.H.G.Anh,03/02/2025--01/06/2025
 IS074IU,IS074IU, Import-Export Management,2,,3,3,IEIE22IU01,90,45,,Ba,1,3,L201,N.H.G.Anh,03/02/2025--01/06/2025
-IS078IU,IS078IU, Logistics Engineering & Supply Chain Design,1,,3,3,IEIE23IU41,85,Hết,,Năm,7,3,A2.601,N.H.G.Anh,03/02/2025--01/06/2025
-IS078IU,IS078IU, Logistics Engineering & Supply Chain Design,2,,3,3,IEIE23IU41,85,Hết,,Năm,4,3,A2.302,N.H.G.Anh,03/02/2025--01/06/2025
-IS078IU,IS078IU, Logistics Engineering & Supply Chain Design,3,,3,3,IEIE23IU41,50,10,,Sáu,1,3,A1.205,N.V.Hop,03/02/2025--01/06/2025
-IS078IU,IS078IU, Logistics Engineering & Supply Chain Design,4,,3,3,IEIE23IU41,70,22,,Ba,7,3,A2.507,N.V.Hop,03/02/2025--01/06/2025
+IS078IU,IS078IU, Logistics & SC Design,1,,3,3,IEIE23IU41,85,Hết,,Năm,7,3,A2.601,N.H.G.Anh,03/02/2025--01/06/2025
+IS078IU,IS078IU, Logistics & SC Design,2,,3,3,IEIE23IU41,85,Hết,,Năm,4,3,A2.302,N.H.G.Anh,03/02/2025--01/06/2025
+IS078IU,IS078IU, Logistics & SC Design,3,,3,3,IEIE23IU41,50,10,,Sáu,1,3,A1.205,N.V.Hop,03/02/2025--01/06/2025
+IS078IU,IS078IU, Logistics & SC Design,4,,3,3,IEIE23IU41,70,22,,Ba,7,3,A2.507,N.V.Hop,03/02/2025--01/06/2025
 IS079IU,IS079IU, Scientific Writing,1,,2,2,IEIE23IU41,35,2,,Tư,7,2,L109,T.K.Hòa,03/02/2025--01/06/2025
 IS079IU,IS079IU, Scientific Writing,2,,2,2,IEIE23IU41,35,6,,Tư,9,2,L109,T.K.Hòa,03/02/2025--01/06/2025
 IS079IU,IS079IU, Scientific Writing,3,,2,2,IEIE23IU41,35,Hết,,Tư,7,2,L106,H.T.B.Phuong,03/02/2025--01/06/2025
@@ -875,11 +875,11 @@ BA083IU,BA083IU, Consumer Behavior,2,,3,3,BABA23AD01,45,Hết,,Bảy,4,3,L202,H
 BA084IU,BA084IU, Import Export Management,1,,3,3,BABA22IU41,45,23,,Bảy,1,3,L110,N.T.H.An,03/02/2025--01/06/2025
 BA084IU,BA084IU, Import Export Management,2,,3,3,BABA22IU41,45,13,,Hai,4,3,A2.511,N.T.H.An,03/02/2025--01/06/2025
 BA098IU,BA098IU, Leadership,1,,3,3,BABA22IU11,75,2,,Hai,7,3,L201,M.N.Khuong,03/02/2025--01/06/2025
-BA115IU,BA115IU, Introduction to Business Administration,2,,3,3,BABA222WE01,60,17,,Bảy,4,3,A2.302,L.T.K.Trang,03/02/2025--01/06/2025
-BA115IU,BA115IU, Introduction to Business Administration,3,,3,3,BABA24IU01,60,Hết,,Bảy,1,3,A1.202,L.T.K.Trang,03/02/2025--01/06/2025
-BA115IU,BA115IU, Introduction to Business Administration,4,,3,3,BABA24IU01,60,20,,Tư,7,3,A2.507,N.Đ.T.An,03/02/2025--01/06/2025
-BA115IU,BA115IU, Introduction to Business Administration,5,,3,3,BABA222WE01,60,40,,Tư,1,3,A1.202,P.V.Hanh,03/02/2025--01/06/2025
-BA115IU,BA115IU, Introduction to Business Administration,7,,3,3,FAAC24IU01,60,1,,Tư,1,3,A1.401,N.T.H.An,03/02/2025--01/06/2025
+BA115IU,BA115IU, Introduction to BA,2,,3,3,BABA222WE01,60,17,,Bảy,4,3,A2.302,L.T.K.Trang,03/02/2025--01/06/2025
+BA115IU,BA115IU, Introduction to BA,3,,3,3,BABA24IU01,60,Hết,,Bảy,1,3,A1.202,L.T.K.Trang,03/02/2025--01/06/2025
+BA115IU,BA115IU, Introduction to BA,4,,3,3,BABA24IU01,60,20,,Tư,7,3,A2.507,N.Đ.T.An,03/02/2025--01/06/2025
+BA115IU,BA115IU, Introduction to BA,5,,3,3,BABA222WE01,60,40,,Tư,1,3,A1.202,P.V.Hanh,03/02/2025--01/06/2025
+BA115IU,BA115IU, Introduction to BA,7,,3,3,FAAC24IU01,60,1,,Tư,1,3,A1.401,N.T.H.An,03/02/2025--01/06/2025
 BA118IU,BA118IU, Introduction to Psychology,1,,3,3,BABA222WE01,50,22,,Ba,7,3,A2.608,N.H.Trung,03/02/2025--01/06/2025
 BA118IU,BA118IU, Introduction to Psychology,2,,3,3,BABA222WE01,50,17,,Năm,4,3,A2.401,N.H.Trung,03/02/2025--01/06/2025
 BA118IU,BA118IU, Introduction to Psychology,4,,3,3,FAAC24IU01,50,7,,Ba,1,3,A1.204,N.H.Trung,03/02/2025--01/06/2025
