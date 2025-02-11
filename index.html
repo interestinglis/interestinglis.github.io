@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="assets/styles.css"> <!-- Load CSS -->
 </head>
 <body>
-    <h2>Phần Mềm Tìm Phòng Trống</h2>
+    <h2 style="color: #2e3f81; ">Check Available Rooms</h2>
+
+
 
     <form id="roomForm">
         <!-- Chọn Thứ Section -->
@@ -25,7 +27,7 @@
 
         <!-- Nhập Tiết (Checkboxes) -->
         <div class="form-group">
-            <label>Nhập Tiết Muốn Trống:</label>
+            <label >Chọn Tiết Cần Trống:</label>
             <div class="checkbox-group">
                 <label><input type="checkbox" name="period" value="1"> Tiết 1</label>
                 <label><input type="checkbox" name="period" value="2"> Tiết 2</label>
@@ -49,10 +51,35 @@
         </button>
     </form>
 
-    <h3>Available Rooms:</h3>
+    <h3 style="color: #2e3f81;">Available Rooms:</h3>
+    <em><font size="2"> Click để xem chi tiết sử dụng phòng</font></em>
     <ul id="result"></ul>
 
+    <!-- Room Usage Section (Displays on Click) -->
+    <div id="roomUsage"></div>
+
+    <em style="color: #ffff;"> 
+        <br />
+        <font size="2">  
+            Note:
+        </font>
+    <b><font size="5">  
+        A1.207*:  
+    </font></b>
+    <font size="2">  
+        Phòng A1.207 có ít khả năng trống 
+    </font></em>
     <script src="assets/data.js"></script> <!-- Load CSV Data -->
     <script src="assets/script.js"></script> <!-- Load JavaScript Logic -->
+    <br />
+    <em style="color: #ffff;">Tìm phòng trống tại Đại Học Quốc Tế, By 
+        <a href="https://www.facebook.com/nimdat" target="_blank"><b style="color: #2e3f81;">Datnim </b></a>.
+    </em>
+    <em style="color: #ffff;">Dữ liệu cập nhật ngày 
+        <b>11/02/2025.</b></em>
+        <br />
+    <em style="color: #ffff;">Phần mềm 
+        <b style="color: #2e3f81;">có thể sai,</b> vui lòng lưu ý khi sử dụng.</em>
+
 </body>
 </html>

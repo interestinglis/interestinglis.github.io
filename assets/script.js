@@ -1,4 +1,4 @@
-// 📌 Convert CSV to JavaScript Array
+//  CSV to JavaScript Array
 function parseCSV(csvText) {
     let lines = csvText.split("\n").map(line => line.trim());
     let headers = lines[0].split(",");
@@ -13,7 +13,7 @@ function parseCSV(csvText) {
 
 const schedule = parseCSV(csvData);
 
-// 📌 Room Filtering Logic (Strictly Following Your Python Logic)
+// Room Filtering Logic
 function findEmptyRooms(day, periods) {
     const startingPeriodCol = "Tiết BD";
     const durationCol = "ST";
@@ -74,13 +74,13 @@ function findEmptyRooms(day, periods) {
     return normalRooms.concat(markedRooms);
 }
 
-// 📌 Handle Form Submission
+//  Form Submission
 document.getElementById("roomForm").addEventListener("submit", function(event) {
     event.preventDefault();
 
     let selectedDay = document.getElementById("day").value;
 
-    // 📌 Get all selected checkboxes (periods)
+    //  all selected checkboxes
     let selectedPeriods = Array.from(document.querySelectorAll('input[name="period"]:checked'))
         .map(cb => cb.value)
         .map(p => parseInt(p))
@@ -101,7 +101,7 @@ document.getElementById("roomForm").addEventListener("submit", function(event) {
         return;
     }
 
-    // 📌 Add results with a delay for smooth animation
+    // smooth animation
     availableRooms.forEach((room, index) => {
         setTimeout(() => {
             let li = document.createElement("li");
@@ -109,10 +109,119 @@ document.getElementById("roomForm").addEventListener("submit", function(event) {
             li.classList.add("fade-in");
             resultList.appendChild(li);
 
-            // 📌 Auto-scroll to bottom smoothly
+            // Auto-scroll to bottom
             resultList.scrollTop = resultList.scrollHeight;
-        }, index * 200); // 200ms delay between each item
+        }, index * 100); // 100ms delay between each item
     });
 });
 
+// 📌 Function to Get Room Usage (Strictly Follows Python Logic)
+function getRoomUsage(csvData, room) {
+    let data = parseCSV(csvData);  // Convert CSV data to JavaScript array
+
+    const startingPeriodCol = "Tiết BD";
+    const durationCol = "ST";
+    const dayCol = "Thứ";
+    const roomCol = "Phòng";
+
+    // Ensure required columns exist
+    let requiredColumns = [startingPeriodCol, durationCol, dayCol, roomCol];
+    for (let col of requiredColumns) {
+        if (!data[0].hasOwnProperty(col)) {
+            console.log(`Column '${col}' not found in the file. Check your CSV data.`);
+            return;
+        }
+    }
+
+    // 📌 Filter data for the specified room
+    let roomData = data.filter(entry => entry[roomCol] === room);
+
+    if (roomData.length === 0) {
+        document.getElementById("roomUsage").innerHTML = `<p>Không tìm thấy dữ liệu cho phòng: ${room}</p>`;
+        return;
+    }
+
+    // 📌 Remove duplicates based on [dayCol, startingPeriodCol, durationCol]
+    let uniqueRoomData = [];
+    let seen = new Set();
+    roomData.forEach(entry => {
+        let key = `${entry[dayCol]}_${entry[startingPeriodCol]}_${entry[durationCol]}`;
+        if (!seen.has(key)) {
+            seen.add(key);
+            uniqueRoomData.push(entry);
+        }
+    });
+
+    // 📌 Convert periods to numeric & clean data
+    uniqueRoomData.forEach(entry => {
+        entry[startingPeriodCol] = parseInt(entry[startingPeriodCol]);
+        entry[durationCol] = parseInt(entry[durationCol]);
+    });
+
+    // 📌 Remove invalid rows
+    uniqueRoomData = uniqueRoomData.filter(entry => !isNaN(entry[startingPeriodCol]) && !isNaN(entry[durationCol]));
+
+    // 📌 Calculate used periods for each entry
+    uniqueRoomData.forEach(entry => {
+        entry["Used Periods"] = Array.from({ length: entry[durationCol] }, (_, i) => entry[startingPeriodCol] + i);
+    });
+
+    // 📌 Display the room usage
+    let daysOfWeek = ['Hai', 'Ba', 'Tư', 'Năm', 'Sáu', 'Bảy'];
+    let roomUsageHTML = `<h3>Các tiết sử dụng phòng ${room}:</h3>`;
+
+    daysOfWeek.forEach(day => {
+        let dayData = uniqueRoomData.filter(entry => entry[dayCol] === day);
+        if (dayData.length > 0) {
+            roomUsageHTML += `<strong>- ${day}:</strong><br>`;
+            let uniquePeriods = new Set();
+            dayData.forEach(entry => {
+                let periodsTuple = entry["Used Periods"].join(", ");
+                if (!uniquePeriods.has(periodsTuple)) {
+                    uniquePeriods.add(periodsTuple);
+                    roomUsageHTML += `Tiết: ${periodsTuple}<br>`;
+                }
+            });
+        } else {
+            roomUsageHTML += `<strong>- ${day}:</strong> Không có tiết<br>`;
+        }
+    });
+
+    let roomUsageBox = document.getElementById("roomUsage");
+
+// Apply fade-out before updating content
+// Reset styles so that every click behaves like the first click
+roomUsageBox.classList.remove("fade-in", "expanded", "fade-out");
+
+// Apply fade-out before updating content
+roomUsageBox.classList.add("fade-out");
+
+// Wait for fade-out to complete before replacing content
+setTimeout(() => {
+    roomUsageBox.innerHTML = roomUsageHTML;
+
+    // Expand box & fade-in effect
+    roomUsageBox.classList.remove("fade-out");
+    roomUsageBox.classList.add("fade-in", "expanded"); 
+}, 500);  // 0.5s delay for smooth transition
+
+
+// Wait for fade-out to complete before replacing content
+setTimeout(() => {
+    roomUsageBox.innerHTML = roomUsageHTML;
+
+    // Expand box & fade-in effect
+    roomUsageBox.classList.remove("fade-out");
+    roomUsageBox.classList.add("fade-in", "expanded"); 
+}, 500);  // 0.5s delay for smooth transition
+;
+}
+
+// 📌 Handle Room Click Event
+document.getElementById("result").addEventListener("click", function(event) {
+    if (event.target.tagName === "LI") {
+        let room = event.target.textContent.split("*")[0].trim();  // Remove marker (*) and get room name
+        getRoomUsage(csvData, room);
+    }
+});
 

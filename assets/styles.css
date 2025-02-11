@@ -7,15 +7,17 @@
 }
 
 /* Center everything */
+/* Apply gradient background */
 body {
+    background: linear-gradient(to left, #69d4eb, #80c8f2);
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
-    background-color: #f4f4f4;
     text-align: center;
 }
+
 
 /* Form container */
 form {
@@ -24,7 +26,7 @@ form {
     align-items: center;
     background: white;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 20px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -63,9 +65,9 @@ select {
 
 /* Button Styling */
 button {
-    --primary-color: #645bff;
+    --primary-color: #645bee;
     --secondary-color: #fff;
-    --hover-color: #111;
+    --hover-color: #69d4eb;
     --arrow-width: 10px;
     --arrow-stroke: 2px;
     
@@ -129,13 +131,13 @@ button:hover .arrow::before {
 /* Container for results (fixed height to prevent jumping) */
 #result {
     width: 100%;
-    max-width: 220px;
-    height: 250px;  /* Fixed height to prevent page jump */
+    max-width: 230px;
+    height: 230px;  /* Fixed height to prevent page jump */
     overflow-y: auto;  /* Enable scrolling if needed */
-    border: 1px solid #ddd;
+    border: 4px solid #ddd;
     border-radius: 10px;
     background: white;
-    padding: 10px;
+    padding: 20px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -158,3 +160,71 @@ button:hover .arrow::before {
     }
 }
 
+/* Room Usage Section */
+/* Room Usage Section */
+#roomUsage {
+    width: 100%;
+    max-width: 80px;
+    min-height: 50px;  /* Prevents initial shrinking */
+    margin-top: 10px;
+    padding: 10px;
+    border: 4px solid #ddd;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    
+    /* Smooth expansion */
+    transition: max-width 0.5s ease-in-out, max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    overflow: hidden;  /* Prevents sudden jumps */
+}
+
+/* Expanding animation */
+.expanded {
+    max-width: 230px !important;  
+    max-height: 550px !important; 
+    transition: max-width 0.5s ease-in-out, max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+
+/* Smooth fade-in effect */
+.fade-in {
+    opacity: 0;
+    animation: fadeInEffect 0.5s ease-in-out forwards;
+}
+
+/* Smooth fade-out effect */
+.fade-out {
+    opacity: 1;
+    animation: fadeOutEffect 0.5s ease-in-out forwards;
+}
+
+/* Keyframes for fade-in */
+@keyframes fadeInEffect {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Keyframes for fade-out */
+@keyframes fadeOutEffect {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+/* Make room results clickable */
+#result li {
+    cursor: pointer; /* Change cursor to pointer */
+    transition: background 0.2s ease-in-out;
+}
+
+#result li:hover {
+    background-color: #f0f0f0; /* Light gray hover effect */
+}
