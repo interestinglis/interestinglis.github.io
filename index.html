@@ -1,202 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>Interestinglis - Homepage</title>
-	<style>
-		body {
-			background: linear-gradient(to bottom right, #ff6c9d, #ffaa85);
-			color: #ca89b4;
-			font-family: Arial, sans-serif;
-			font-size: 23px ;
-			padding: 0;
-			margin: 0;
-		}
-
-		h1 {
-			text-align: center;
-  font-size: 72px;
-  background: -webkit-linear-gradient(#f783ff, #92f4ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-		.container {
-			display: flex;
-			flex-wrap: wrap;
-			justify-content: center;
-			align-items: flex-start;
-			max-width: 1200px;
-			margin: 0 auto;
-			padding: 20px;
-		}
-
-		.item {
-			background-color: rgba(255, 255, 255, 0.8);
-			margin: 10px;
-			padding: 20px;
-			border-radius: 10px;
-			box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-			flex-basis: 45%;
-		}
-
-		h2 {
-			text-align:left;
-  font-size: 30px;
-  background: linear-gradient(#bb5fc2, #46b6c2);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-h3 {
-			text-align:center;
-  font-size: 20px;
-  background: linear-gradient(#bb5fc2, #2e1de1);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-
-		p {
-			margin-bottom: 20px;
-		}
-
-		.clickhere {
-			background-color: #eabfdc;
-			color: #ffffff;
-			border: none;
-			padding: 10px 20px;
-			text-align: center;
-			text-decoration: none;
-			display: inline-block;
-			font-size: 20px;
-			border-radius: 8px;
-			margin-top: 10px;
-			cursor: pointer;
-			transition: background-color 0.3s ease;
-		}
-
-		.clickhere:hover {
-			background-color: #ff96b9;
-			color: #ffeaf9;
-		}
-	</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room Availability Checker</title>
+    <link rel="stylesheet" href="assets/styles.css"> <!-- Load CSS -->
 </head>
 <body>
-	<h1>Interestinglis.com</h1>
-<h3> Luyện nghe Tiếng Anh qua những video thú vị </h3>
-	<div class="container">
-		<div class="item">
-			<h2>[1] Why Is Housing In Hong Kong So Expensive?</h2>
-			<p>Tại sao giá nhà ở Hồng Kông siêu đắt</p>
-			<div>
-				<a href="content/dictation/dictation_ whyhongkongissoexpensive.html" class="clickhere"><b>Điền Từ</b></a>
-				<a href="#" class="clickhere"><b>Trắc Nghiệm</b></a>
-			</div>
-		</div>
+    <h2>Check Available Rooms</h2>
 
-		<div class="item">
-			<h2>Why you procrastinate even when it feels bad </h2>
-			<p>Tại sao bạn vẫn trì hoãn ngay cả khi cảm thấy tồi tệ</p>
-			<div>
-				<a href="content/dictation/dictation_ Why you procrastinate even when it feels bad.html" class="clickhere"><b>Điền Từ</b></a>
-				<a href="#" class="clickhere"><b>Trắc Nghiệm</b></a>
-			</div>
-		</div>
+    <form id="roomForm">
+        <!-- Chọn Thứ Section -->
+        <div class="form-group">
+            <label for="day">Chọn Thứ:</label>
+            <select id="day">
+                <option value="Hai">Hai</option>
+                <option value="Ba">Ba</option>
+                <option value="Tư">Tư</option>
+                <option value="Năm">Năm</option>
+                <option value="Sáu">Sáu</option>
+                <option value="Bảy">Bảy</option>
+            </select>
+        </div>
 
-		<div class="item">
-			<h2>Why Planes Don't Fly Faster </h2>
-			<p>Lý do máy bay không bay nhanh hơn</p>
-			<div>
-				<a href="content/dictation/dictation_ Why planes don't fly faster.html" class="clickhere"><b>Điền Từ</b></a>
-				<a href="#" class="clickhere"><b>Trắc Nghiệm</b></a>
-			</div>
-		</div>
+        <!-- Nhập Tiết (Checkboxes) -->
+        <div class="form-group">
+            <label>Nhập Tiết:</label>
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="period" value="1"> Tiết 1</label>
+                <label><input type="checkbox" name="period" value="2"> Tiết 2</label>
+                <label><input type="checkbox" name="period" value="3"> Tiết 3</label>
+                <label><input type="checkbox" name="period" value="4"> Tiết 4</label>
+                <label><input type="checkbox" name="period" value="5"> Tiết 5</label>
+                <label><input type="checkbox" name="period" value="6"> Tiết 6</label>
+                <label><input type="checkbox" name="period" value="7"> Tiết 7</label>
+                <label><input type="checkbox" name="period" value="8"> Tiết 8</label>
+                <label><input type="checkbox" name="period" value="9"> Tiết 9</label>
+                <label><input type="checkbox" name="period" value="10"> Tiết 10</label>
+            </div>
+        </div>
 
-		<div class="item">
-			<h2>####</h2>
-			<p>****</p>
-			<div>
-				<a href="#" class="clickhere"><b>Điền Từ</b></a>
-				<a href="#" class="clickhere"><b>Trắc Nghiệm</b></a>
-			</div>
-		</div>
+        <!-- Button -->
+        <button type="submit">
+            Tìm phòng trống
+            <div class="arrow-wrapper">
+                <div class="arrow"></div>
+            </div>
+        </button>
+    </form>
 
-		<div class="item">
-			<h2>####</h2>
-			<p>****</p>
-			<div>
-				<a href="#" class="clickhere"><b>Điền Từ</b></a>
-				<a href="#" class="clickhere"><b>Trắc Nghiệm</b></a>
-			</div>
-		</div>
+    <h3>Available Rooms:</h3>
+    <ul id="result"></ul>
 
-		<div class="item">
-			<h2>####</h2>
-			<p>****</p>
-			<div>
-				<a href="#" class="clickhere"><b>Điền Từ</b></a>
-				<a href="#" class="clickhere"><b>Trắc Nghiệm</b></a>
-			</div>
-		</div>
-			<div class="item">
-			<h2>####</h2>
-			<p>****</p>
-			<div>
-				<a href="#" class="clickhere"><b>Điền Từ</b></a>
-				<a href="#" class="clickhere"><b>Trắc Nghiệm</b></a>
-			</div>
-		</div>
-
-		<div class="item">
-			<h2>####</h2>
-			<p>****</p>
-			<div>
-				<a href="#" class="clickhere"><b>Điền Từ</b></a>
-				<a href="#" class="clickhere"><b>Trắc Nghiệm</b></a>
-			</div>
-		</div>
-
-		<div class="item">
-			<h2>####</h2>
-			<p>****</p>
-			<div>
-				<a href="#" class="clickhere"><b>Điền Từ</b></a>
-				<a href="#" class="clickhere"><b>Trắc Nghiệm</b></a>
-			</div>
-		</div>
-
-		<div class="item">
-			<h2>####</h2>
-			<p>****</p>
-			<div>
-				<a href="#" class="clickhere"><b>Điền Từ</b></a>
-				<a href="#" class="clickhere"><b>Trắc Nghiệm</b></a>
-			</div>
-		</div>
-
-		<div class="item">
-			<h2>####</h2>
-			<p>****</p>
-			<div>
-				<a href="#" class="clickhere"><b>Điền Từ</b></a>
-				<a href="#" class="clickhere"><b>Trắc Nghiệm</b></a>
-			</div>
-		</div>
-
-		<div class="item">
-			<h2>####</h2>
-			<p>****</p>
-			<div>
-				<a href="#" class="clickhere"><b>Điền Từ</b></a>
-				<a href="#" class="clickhere"><b>Trắc Nghiệm</b></a>
-			</div>
-		</div>
-
-
-		
-
-
-		
-	</div>
+    <script src="assets/data.js"></script> <!-- Load CSV Data -->
+    <script src="assets/script.js"></script> <!-- Load JavaScript Logic -->
 </body>
 </html>
