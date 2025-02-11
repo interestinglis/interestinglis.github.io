@@ -16,6 +16,7 @@ Phần mềm dùng để tìm phòng trống tại Đại Học Quốc Tế - Đ
    được mở khoá) sẽ được đánh 1 dấu *
  - Các phòng thường xuyên được trưng dụng như A1.109 sẽ được đánh thêm 1 dấu *
  - Các phòng Lab, Online, Physical train đều bị loại bỏ
+ - Phòng không có tiết nào hôm đó sẽ bị loại bỏ
 
 
 
