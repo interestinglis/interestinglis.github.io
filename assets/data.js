@@ -1,4 +1,4 @@
-// 📌 Embedded CSV Data
+
 const csvData = `
 Mã MHBĐ,Mã MH,Tên môn học,NMH,TTH,STC,STCHP,Mã lớp,Sĩ số,CL,TH,Thứ,Tiết BD,ST,Phòng,Giảng viên,TG học
 BA005IU,BA005IU, Financial Accounting,3,,3,3,BABA21IU01,50,9,,Ba,7,3,A2.312,L.N.A.Khoa,03/02/2025--01/06/2025
