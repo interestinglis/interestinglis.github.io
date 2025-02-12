@@ -53,7 +53,7 @@ function findEmptyRooms(day, periods) {
 
     let specialRooms = new Set([
         'A1.109', 'A2.104', 'A1.201', 'A1.202', 'A1.203',
-        'A1.204', 'A1.205', 'A1.206', 'A1.207', 'A1.208', 'A1.209', 'A1.207A', 'A1.207B', 'A2.309'
+        'A1.204', 'A1.205', 'A1.206', 'A1.207', 'A1.208', 'A1.209', 'A1.207A', 'A1.207B', 'A1.309'
     ]);
 
     let normalRooms = [];
