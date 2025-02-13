@@ -70,19 +70,20 @@ function findEmptyRooms(day, periods) {
         }
     });
 
-    // Sorting function for normal rooms
+// Sorting function for normal rooms
 normalRooms.sort((a, b) => {
     const prefixPriority = { "A1.": 1, "A2.": 2, "L": 3 };
-    
+
     function getPrefix(room) {
         if (room.startsWith("A1.")) return "A1.";
         if (room.startsWith("A2.")) return "A2.";
         if (room.startsWith("L")) return "L";
-        return "Z"; // Default for unknown prefix (put at the end)
+        return "Z"; // Default for unknown prefixes
     }
 
     function getRoomNumber(room) {
-        return parseInt(room.match(/\d+/)?.[0]) || 9999; // Extract number or default to high value
+        let match = room.match(/\d+$/); // Extracts last numerical part
+        return match ? parseInt(match[0], 10) : 9999; // Convert to integer or set high default
     }
 
     let prefixA = getPrefix(a);
@@ -92,12 +93,11 @@ normalRooms.sort((a, b) => {
         return prefixPriority[prefixA] - prefixPriority[prefixB]; // Sort by prefix priority
     }
 
-    return getRoomNumber(a) - getRoomNumber(b); // Sort by number if prefixes match
+    return getRoomNumber(a) - getRoomNumber(b); // Sort by extracted number
 });
 
 // Merge sorted normalRooms with markedRooms
 return normalRooms.concat(markedRooms);
-
 }
 
 //  Form Submission
@@ -232,7 +232,7 @@ setTimeout(() => {
     // Expand box & fade-in effect
     roomUsageBox.classList.remove("fade-out");
     roomUsageBox.classList.add("fade-in", "expanded"); 
-}, 500);  // 0.5s delay for smooth transition
+}, 250);  // 0.5s delay for smooth transition
 
 
 // Wait for fade-out to complete before replacing content
@@ -242,7 +242,7 @@ setTimeout(() => {
     // Expand box & fade-in effect
     roomUsageBox.classList.remove("fade-out");
     roomUsageBox.classList.add("fade-in", "expanded"); 
-}, 500);  // 0.5s delay for smooth transition
+}, 250);  // 0.5s delay for smooth transition
 ;
 }
 
