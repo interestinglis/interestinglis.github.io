@@ -52,7 +52,7 @@ function findEmptyRooms(day, periods) {
     let emptyRooms = [...allRooms].filter(room => !occupiedRooms.has(room));
 
     let specialRooms = new Set([
-        'A1.109', 'A2.104', 'A1.207A', 'A1.207B', 'A1.309'
+        'A1.109', 'A2.104', 'A1.207A', 'A1.207B', 'A1.309', 'A2.203', 'A2.204', 'A2.205', 'A2.206', 'A2.207A', 'A2.207B'
     ]);
 
     let normalRooms = [];
@@ -70,7 +70,34 @@ function findEmptyRooms(day, periods) {
         }
     });
 
-    return normalRooms.concat(markedRooms);
+    // Sorting function for normal rooms
+normalRooms.sort((a, b) => {
+    const prefixPriority = { "A1.": 1, "A2.": 2, "L": 3 };
+    
+    function getPrefix(room) {
+        if (room.startsWith("A1.")) return "A1.";
+        if (room.startsWith("A2.")) return "A2.";
+        if (room.startsWith("L")) return "L";
+        return "Z"; // Default for unknown prefix (put at the end)
+    }
+
+    function getRoomNumber(room) {
+        return parseInt(room.match(/\d+/)?.[0]) || 9999; // Extract number or default to high value
+    }
+
+    let prefixA = getPrefix(a);
+    let prefixB = getPrefix(b);
+
+    if (prefixA !== prefixB) {
+        return prefixPriority[prefixA] - prefixPriority[prefixB]; // Sort by prefix priority
+    }
+
+    return getRoomNumber(a) - getRoomNumber(b); // Sort by number if prefixes match
+});
+
+// Merge sorted normalRooms with markedRooms
+return normalRooms.concat(markedRooms);
+
 }
 
 //  Form Submission
@@ -227,3 +254,27 @@ document.getElementById("result").addEventListener("click", function(event) {
     }
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    // Mapping of JavaScript days (0-6) to Vietnamese days
+    const dayMap = {
+        1: "Hai",  // Monday
+        2: "Ba",   // Tuesday
+        3: "Tư",   // Wednesday
+        4: "Năm",  // Thursday
+        5: "Sáu",  // Friday
+        6: "Bảy"   // Saturday
+    };
+
+    let now = new Date();
+    let gmt7Offset = 7 * 60 * 60 * 1000; // Offset in milliseconds
+    now = new Date(now.getTime() + gmt7Offset); // Convert to GMT+7
+
+    let today = now.getUTCDay(); // Get the current day (0=Sunday, 6=Saturday)
+
+    if (today === 0) today = 1; // If Sunday (0), default to Monday (1)
+
+    let todayName = dayMap[today] || "Hai"; // Fallback to "Hai" if an issue occurs
+
+    // Set the default dropdown value
+    document.getElementById("day").value = todayName;
+});
