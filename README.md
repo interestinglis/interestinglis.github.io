@@ -25,24 +25,38 @@ Phần mềm dùng để tìm phòng trống tại Đại Học Quốc Tế - Đ
 1. Data được lấy từ EDUSOFT>Đăng Kí Môn Học > Hiện Thị Điều Kiện Lọc > Chọn Khoa > Copy hết các môn trong từng khoa
 ![image](https://github.com/user-attachments/assets/ed0616e9-d5fb-4247-a245-f4f01ad4a1d5)
 
-2. Paste tất cả các môn của tất cả các khoa và lưu dưới dạng XLSX, sau đó  unmerge cells bằng VBA, remove duplicates, remove online class, Physical training class, labs , sau đó lưu dưới dạng .csv
+2. Paste tất cả các môn của tất cả các khoa và lưu dưới dạng XLSX,sau đó align lại các cột, bỏ đi các lớp ONLINE và PHYSICAL TRAINING. Cuối cùng format bằng VBA.
+  Script này sẽ unmerge cell, remove duplicates, xoá cột đầu
 **Lưu ý data này không bao gồm các lớp IE và các event bất chợt*
 
 
-> VBA script để unmerge nhưng giữ value: 
+> VBA script để format dataset: 
 
 	Sub UnMergeFill()
 
     Dim cell As Range, joinedCells As Range
+    Dim ws As Worksheet
+    Dim lastRow As Long, lastCol As Long
+    Dim rng As Range
 
-    For Each cell In ThisWorkbook.ActiveSheet.UsedRange
+    Set ws = ThisWorkbook.ActiveSheet
+
+    For Each cell In ws.UsedRange
         If cell.MergeCells Then
             Set joinedCells = cell.MergeArea
-            cell.MergeCells = False
-            ' I need an if loop here to check if the Range happens to be in the same column
+            joinedCells.MergeCells = False
             joinedCells.Value = cell.Value
         End If
     Next
+
+    lastRow = ws.Cells(Rows.Count, 1).End(xlUp).Row
+    lastCol = ws.Cells(1, Columns.Count).End(xlToLeft).Column
+
+    Set rng = ws.Range(ws.Cells(1, 2), ws.Cells(lastRow, lastCol)) ' Excluding column A (1st column)
+
+    rng.RemoveDuplicates Columns:=Application.WorksheetFunction.Transpose(Evaluate("ROW(1:" & lastCol - 1 & ")")), Header:=xlYes
+
+    ws.Columns(1).Delete Shift:=xlToLeft
 
     End Sub
 ````
