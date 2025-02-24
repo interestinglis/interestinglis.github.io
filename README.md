@@ -85,3 +85,7 @@ Phần mềm dùng để tìm phòng trống tại Đại Học Quốc Tế - Đ
    
 
 6. All done, enjoy!
+
+
+
+*Đây chỉ là một side project nhỏ, không tránh phải việc xảy ra lỗi, mong các bạn bỏ qua*
