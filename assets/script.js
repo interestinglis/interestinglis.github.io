@@ -111,6 +111,15 @@ document.getElementById("roomForm").addEventListener("submit", function(event) {
         .map(cb => cb.value)
         .map(p => parseInt(p))
         .filter(p => !isNaN(p)); // Convert to integers & remove invalid values
+    // Send tracking data to Google Analytics for each selected period
+    selectedPeriods.forEach(period => {
+        gtag('event', 'period_selected', {
+            'event_category': 'Period Selection',
+            'event_label': `Tiết ${period}`,
+            'value': parseInt(period)
+        });
+    });
+
 
     if (selectedPeriods.length === 0) {
         alert("Vui lòng chọn ít nhất một tiết học.");
