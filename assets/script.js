@@ -1,11 +1,22 @@
 //  CSV to JavaScript Array
 function parseCSV(csvText) {
-    let lines = csvText.split("\n").map(line => line.trim());
-    let headers = lines[0].split(",");
+    let lines = csvText.split("\n").map(line => line.trim()).filter(line => line !== "");
+    if (lines.length === 0) return [];
+
+    let headers = lines[0].split(",").map(h => h.trim());
+    if (headers[headers.length - 1] === "") {
+        headers.pop();
+    }
+
     let rows = lines.slice(1).map(line => {
-        let values = line.split(",");
+        if (line.startsWith(",") && headers[0] !== "") {
+            line = line.substring(1);
+        }
+        let values = line.split(",").map(v => v.trim());
         let obj = {};
-        headers.forEach((header, i) => obj[header] = values[i]);
+        headers.forEach((header, i) => {
+            obj[header] = values[i] !== undefined ? values[i] : "";
+        });
         return obj;
     });
     return rows;
