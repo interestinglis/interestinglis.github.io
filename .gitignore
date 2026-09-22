@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Chrome profile data
+.chrome_profile/
+
+# PyInstaller build outputs
+build/
+dist/
+*.spec
+version_info.txt
+*.zip

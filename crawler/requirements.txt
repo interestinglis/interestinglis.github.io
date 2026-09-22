@@ -1,0 +1,4 @@
+# Dependencies for HCMIU Edusoft Crawler
+selenium>=4.20.0
+beautifulsoup4>=4.12.0
+pyinstaller>=6.0.0
