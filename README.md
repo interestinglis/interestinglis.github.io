@@ -21,40 +21,40 @@
 
 ---
 
-## 🔄 2. Hướng dẫn cập nhật dữ liệu mỗi khi sang học kỳ mới
+## 🔄 2. Quy trình cập nhật dữ liệu mỗi khi sang học kỳ mới
 
-Mỗi khi trường công bố thời khóa biểu cho học kỳ mới, bạn có thể cập nhật dữ liệu vào website theo **1 trong 2 cách** cực kỳ dễ dàng:
+Mỗi khi trường công bố thời khóa biểu kỳ mới, quy trình cập nhật diễn ra theo các bước nối tiếp nhau cực kỳ đơn giản:
 
-### 🚀 Cách 1: Cập nhật tự động 1-Click (Khuyên dùng - Không cần biết lập trình)
-
-1. Nhấp đúp chuột vào file **[`crawl_edusoft.exe`](crawl_edusoft.exe)** (có thể chạy ngay trong thư mục dự án hoặc shortcut ngoài Desktop).
+### Bước 1: Cào dữ liệu tự động bằng tool 1-Click
+1. Nhấp đúp chuột vào file **[`crawl_edusoft.exe`](crawl_edusoft.exe)** (có thể chạy ngay trong thư mục dự án hoặc file ngoài Desktop).
 2. Cửa sổ Google Chrome sẽ tự động bật lên $\to$ Bạn **nhập MSSV & Mật khẩu Edusoft của chính bạn** rồi bấm Đăng nhập.
-3. Chờ khoảng 30 giây để tool tự động quét dữ liệu từ tất cả 17 Khoa/Bộ môn.
-4. Khi cào xong và kiểm tra an toàn, tool sẽ hỏi:
+3. Chờ khoảng 30 giây để tool tự động quét 17 Khoa/Bộ môn, lọc sạch dữ liệu và xuất ra file **`Sem_current.csv`**.
+4. Khi hoàn tất kiểm tra an toàn, tool sẽ hỏi:
    ```text
    👉 Bạn có muốn tự động cập nhật và publish lên website ngay bây giờ không? (y/N):
    ```
-   Bạn chỉ cần gõ **`y`** rồi nhấn **Enter**. Dữ liệu sẽ được tự động cập nhật và trang web sẽ có lịch mới sau 1 - 2 phút!
+   - **Nếu gõ `y`:** Tool sẽ tự động cập nhật thẳng vào `assets/data.js` và git push lên website luôn $\to$ Hoàn tất!
+   - **Nếu gõ `N` (hoặc bạn muốn tự kiểm tra dữ liệu trước khi đẩy lên web):** Thực hiện tiếp Bước 2 dưới đây.
 
 ---
 
-### 📝 Cách 2: Dán thủ công bằng Notepad (Quy trình quen thuộc)
+### Bước 2: Dán dữ liệu CSV vào `data.js` (khi không auto-commit)
 
-Nếu bạn đã có sẵn file CSV thời khóa biểu (ví dụ file `Sem_current.csv` do tool xuất ra, hoặc file CSV bạn tự chuẩn bị):
+Nếu bạn không auto-commit ở Bước 1, hoặc khi bạn có sẵn file CSV thời khóa biểu và muốn cập nhật thủ công:
 
-1. **Mở file CSV:** Nhấp chuột phải vào file `.csv` $\to$ chọn **Open with** $\to$ **Notepad** (hoặc bất kỳ trình soạn thảo văn bản nào).
-2. **Copy toàn bộ dữ liệu:** Nhấn tổ hợp phím **`Ctrl + A`** (chọn tất cả nội dung) $\to$ nhấn **`Ctrl + C`** (sao chép).
+1. **Mở file CSV:** Nhấp chuột phải vào file `Sem_current.csv` $\to$ chọn **Open with** $\to$ **Notepad**.
+2. **Copy toàn bộ dữ liệu:** Nhấn tổ hợp phím **`Ctrl + A`** (chọn tất cả) $\to$ nhấn **`Ctrl + C`** (sao chép).
 3. **Mở file data của website:** Mở file **`assets/data.js`** bằng **Notepad**.
-4. **Dán đè nội dung:** Dán toàn bộ nội dung vừa copy vào **bên trong cặp dấu nháy xiên (\`)** của biến `const csvData`, như hình mẫu dưới đây:
+4. **Dán đè nội dung:** Dán toàn bộ nội dung vừa copy vào **bên trong cặp dấu nháy xiên (\`)** của biến `const csvData`:
    ```javascript
    // 📌 assets/data.js
    const csvData = `
    Mã MHBĐ,Mã MH,Tên môn học,NMH,TTH,STC,STCHP,Mã lớp,Sĩ số,CL,TH,Thứ,Tiết BD,ST,Phòng,Giảng viên,TG học,
    ,BA005IU,BA005IU,Financial Accounting,01,,3,3,FAAC25IU01,50,Hết,,Hai,7,3,A2.301,T.D.Khiêm,07/09/2026--27/12/2026
-   ... (toàn bộ nội dung file CSV của bạn dán tại đây)
+   ... (dán toàn bộ nội dung CSV của bạn vào đây)
    `;
    ```
-5. **Lưu file:** Nhấn **`Ctrl + S`** để lưu file `assets/data.js`.
+5. **Lưu file:** Nhấn **`Ctrl + S`** để lưu lại `assets/data.js`.
 6. **Đẩy lên website:** Chạy lệnh Git để đưa lên GitHub Pages:
    ```bash
    git add assets/data.js Sem_current.csv
@@ -97,7 +97,7 @@ TimPhongTrong/
 ## 💡 4. Một số lưu ý khi tìm phòng tại trường
 
 - **Dữ liệu mang tính tham khảo:** Dữ liệu được bóc tách từ cổng đào tạo EdusoftWeb của trường, do đó **không bao gồm** các lớp Tiếng Anh tăng cường (Intensive English - IE), các kỳ thi đột xuất, hoặc các sự kiện/hội thảo được CLB/Khoa đặt phòng riêng tại Phòng Đào tạo (OAA).
-- **Mẹo tìm phòng:** Nếu đến cửa phòng thấy khóa, bạn có thể ngó xem các phòng cùng dãy lân cận có phòng nào đang mở sáng đèn hoặc nhờ các chú bảo vệ trực tầng hỗ trợ nhé.
+- **Mẹo tìm phòng:** Trường không có bảo vệ trực tầng để hỗ trợ mở cửa phòng trống. Nếu đến nơi thấy phòng đang khóa, bạn chỉ cần mở lại web và chọn một phòng khác trong danh sách kết quả (đặc biệt ưu tiên các phòng không có dấu sao vì chắc chắn đã có lớp mở cửa từ trước).
 - **Đóng góp phát triển:** Đây là dự án nhỏ phi lợi nhuận phục vụ cộng đồng sinh viên IU. Mọi ý kiến đóng góp, báo lỗi hoặc chia sẻ bạn cứ liên hệ qua [Facebook Datnim](https://www.facebook.com/nimdat) nhé!
 
 ---
