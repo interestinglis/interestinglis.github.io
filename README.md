@@ -1,144 +1,114 @@
-# 🏛️ IU Room Availability Checker (Tìm Phòng Trống HCMIU)
+# 🏛️ Tìm Phòng Trống HCMIU (IU Room Availability Checker)
 
-> **Phần mềm tra cứu và tìm kiếm phòng học còn trống tại Trường Đại học Quốc Tế - ĐHQG TP.HCM (HCMIU).**  
-> Giúp sinh viên dễ dàng tìm phòng tự học, họp nhóm, nghỉ trưa hoặc sinh hoạt câu lạc bộ một cách nhanh chóng và chính xác.
+> **Ứng dụng tra cứu phòng học còn trống tại Trường Đại học Quốc Tế - ĐHQG TP.HCM (HCMIU).**  
+> Giúp các bạn sinh viên tìm phòng tự học, họp nhóm, nghỉ trưa hoặc sinh hoạt CLB nhanh chóng và tiện lợi.
 
-🌐 **Website trực tuyến:** [https://interestinglis.github.io/](https://interestinglis.github.io/)  
-👤 **Tác giả:** [Nìm Tiến Đạt (Datnim)](https://www.facebook.com/nimdat)  
-📬 **Liên hệ:** `nimdat2004@gmail.com` | `IELSIU22313@student.hcmiu.edu.vn`
-
----
-
-## 📌 Mục Lục
-- [1. Giới thiệu & Cách thức hoạt động](#1-giới-thiệu--cách-thức-hoạt-động)
-- [2. Quy tắc lọc phòng (Filter Rules)](#2-quy-tắc-lọc-phòng-filter-rules)
-- [3. Thu thập dữ liệu tự động (Browser Automation)](#3-thu-thập-dữ-liệu-tự-động-browser-automation-khuyên-dùng)
-- [4. Cấu trúc thư mục dự án](#4-cấu-trúc-thư-mục-dự-án)
-- [5. Quy trình thủ công cũ (Excel + VBA)](#5-quy-trình-thủ-công-cũ-excel--vba-lưu-trữ)
-- [6. Lưu ý & Miễn trừ trách nhiệm](#6-lưu-ý--miễn-trừ-trách-nhiệm)
+- 🌐 **Website trực tuyến:** [https://interestinglis.github.io/](https://interestinglis.github.io/)  
+- 👤 **Tác giả:** [Nìm Tiến Đạt (Datnim)](https://www.facebook.com/nimdat)  
+- 📬 **Liên hệ:** `nimdat2004@gmail.com` | `IELSIU22313@student.hcmiu.edu.vn`
 
 ---
 
-## 1. Giới thiệu & Cách thức hoạt động
+## ✨ 1. Web hoạt động như thế nào?
 
-Website được thiết kế theo kiến trúc **Serverless / Static Web Application**:
-- **Không cần backend:** Dữ liệu thời khóa biểu toàn trường được nén và nhúng trực tiếp dưới dạng chuỗi CSV trong file `assets/data.js`.
-- **Tốc độ phản hồi tức thì:** Toàn bộ thuật toán tìm kiếm, đối soát lịch học, lọc phòng và sắp xếp đều chạy trực tiếp trên trình duyệt của người dùng (Client-side JavaScript).
-- **Hosting miễn phí 100%:** Triển khai qua GitHub Pages tại domain `interestinglis.github.io`.
-
-### Luồng xử lý khi người dùng tra cứu:
-1. Người dùng chọn **Thứ trong tuần** (Hai, Ba, Tư, Năm, Sáu, Bảy).
-2. Người dùng tích chọn các **Tiết cần trống** (từ Tiết 1 đến Tiết 10).
-3. Hệ thống quét qua toàn bộ lịch học trong ngày đó, tìm ra tất cả các phòng đang có lớp học diễn ra vào các tiết đã chọn và loại bỏ chúng.
-4. Danh sách các phòng còn lại được phân loại, đánh dấu mức độ khả dụng và sắp xếp ưu tiên theo từng dãy nhà.
+- **Dùng ngay không cần cài đặt:** Bạn chỉ cần truy cập website, chọn **Thứ trong tuần** và tích chọn các **Tiết cần trống** (từ Tiết 1 đến Tiết 10).
+- **Phản hồi tức thì:** Toàn bộ dữ liệu thời khóa biểu được tích hợp trực tiếp vào trang web, hệ thống sẽ lọc và trả về danh sách các phòng khả dụng ngay lập tức mà không cần chờ tải lại trang.
+- **Quy tắc hiển thị và ký hiệu phòng:**
+  - **Phòng không dấu (ví dụ `A1.401`):** Phòng đã có lớp học từ các tiết trước đó trong ngày $\to$ chắc chắn cửa phòng đã được mở sẵn, vào học thoải mái.
+  - **Phòng có dấu `*` (ví dụ `A1.402 *`):** Từ đầu ngày đến lúc bạn tra chưa có tiết học nào $\to$ khả năng cao cửa phòng vẫn đang khóa.
+  - **Phòng có dấu `**` (ví dụ `A1.109 **`):** Các phòng thường xuyên được trưng dụng làm hội đồng, phòng họp hoặc bảo vệ khóa luận.
+  - *Hệ thống đã tự động lọc bỏ các phòng Lab thực hành (luôn khóa cửa) và các lớp học Online / Thể dục ngoài sân.*
 
 ---
 
-## 2. Quy tắc lọc phòng (Filter Rules)
+## 🔄 2. Hướng dẫn cập nhật dữ liệu mỗi khi sang học kỳ mới
 
-Nhằm tăng tính thực tế khi sinh viên đi tìm phòng, hệ thống áp dụng các quy tắc phân loại thông minh:
+Mỗi khi trường công bố thời khóa biểu cho học kỳ mới, bạn có thể cập nhật dữ liệu vào website theo **1 trong 2 cách** cực kỳ dễ dàng:
 
-| Ký hiệu | Ý nghĩa | Giải thích |
-| :---: | :--- | :--- |
-| *(Không dấu)* | **Phòng sẵn sàng cao** | Phòng đã có lớp học từ các tiết trước đó trong ngày (chắc chắn đã được mở khóa cửa). |
-| `*` | **Phòng có thể đang khóa** | Phòng chưa có tiết học nào diễn ra từ đầu ngày đến thời điểm tra cứu (khả năng cao cửa phòng vẫn đang khóa). |
-| `**` | **Phòng đặc biệt / Thường trưng dụng** | Các phòng như `A1.109`, `A2.104`, `A1.207A`, `A1.207B`, `A1.309`, `A2.203-A2.206`, `A2.207A-B` thường xuyên được trưng dụng làm hội đồng hoặc phòng chuyên môn. |
+### 🚀 Cách 1: Cập nhật tự động 1-Click (Khuyên dùng - Không cần biết lập trình)
 
-### Các loại phòng bị loại bỏ khỏi hệ thống:
-- ❌ **Phòng Lab / Thực hành:** Các phòng thí nghiệm, phòng máy tính (`LA1...`, `LAB`) do luôn khóa cửa và chỉ dành cho môn chuyên ngành.
-- ❌ **Lớp học Online:** Các lớp học trực tuyến qua MS Teams / Zoom.
-- ❌ **Lớp Giáo dục thể chất:** Lớp học tại sân bóng, nhà thi đấu ngoài trời (`PHYSICAL TRAINING`, `GDTC`).
-- ❌ **Phòng không có lịch:** Các phòng hoàn toàn không có bất kỳ tiết học nào trong suốt học kỳ.
-
-### Thuật toán sắp xếp thứ tự hiển thị:
-Ưu tiên hiển thị theo khối nhà và số tầng từ thấp đến cao:
-$$\text{Dãy A1} \longrightarrow \text{Dãy A2} \longrightarrow \text{Dãy L} \longrightarrow \text{Các dãy khác}$$
+1. Nhấp đúp chuột vào file **[`crawl_edusoft.exe`](crawl_edusoft.exe)** (có thể chạy ngay trong thư mục dự án hoặc shortcut ngoài Desktop).
+2. Cửa sổ Google Chrome sẽ tự động bật lên $\to$ Bạn **nhập MSSV & Mật khẩu Edusoft của chính bạn** rồi bấm Đăng nhập.
+3. Chờ khoảng 30 giây để tool tự động quét dữ liệu từ tất cả 17 Khoa/Bộ môn.
+4. Khi cào xong và kiểm tra an toàn, tool sẽ hỏi:
+   ```text
+   👉 Bạn có muốn tự động cập nhật và publish lên website ngay bây giờ không? (y/N):
+   ```
+   Bạn chỉ cần gõ **`y`** rồi nhấn **Enter**. Dữ liệu sẽ được tự động cập nhật và trang web sẽ có lịch mới sau 1 - 2 phút!
 
 ---
 
-## 3. Thu thập dữ liệu tự động (Browser Automation & Standalone Tool) ⭐
+### 📝 Cách 2: Dán thủ công bằng Notepad (Quy trình quen thuộc)
 
-Để không còn phải copy-paste hàng nghìn môn học bằng tay mỗi khi sang học kỳ mới, dự án đã tích hợp công cụ cào dữ liệu tự động 100% bằng Python & Selenium với kiến trúc **Bus Factor = 0** ([`crawl_edusoft.exe`](crawl_edusoft.exe) / [`crawler/crawl_edusoft.py`](crawler/crawl_edusoft.py)).
+Nếu bạn đã có sẵn file CSV thời khóa biểu (ví dụ file `Sem_current.csv` do tool xuất ra, hoặc file CSV bạn tự chuẩn bị):
 
-> 📘 **Tài liệu bàn giao & kế thừa:** Xem chi tiết tại [**docs/MAINTENANCE.md**](docs/MAINTENANCE.md) (Hướng dẫn 3 phút cho sinh viên không biết code, Sổ tay gỡ lỗi và Quy trình chuyển giao quyền quản trị).
-
-### 🚀 Cách 1: 1-Click Run bằng File thực thi `.exe` (Khuyên dùng - Không cần cài Python)
-- **Trong thư mục dự án:** Nhấp đúp chuột vào file [`crawl_edusoft.exe`](crawl_edusoft.exe) hoặc [`run_crawler.bat`](run_crawler.bat).
-- **Ngoài Desktop:** Nhấp đúp chuột vào shortcut / file `crawl_edusoft.exe`.
-- Đăng nhập bằng tài khoản Edusoft của chính bạn $\to$ Tool tự cào 17 Khoa $\to$ Kiểm tra chất lượng dữ liệu $\to$ Tự động sao lưu và cập nhật `assets/data.js`.
-
-### 💻 Cách 2: Chạy từ Terminal / Mã nguồn Python
-```bash
-# Trong môi trường Python đã cài đặt selenium & beautifulsoup4
-python crawl_edusoft.py
-```
-
-### ⚙️ Các tham số tùy chọn:
-```bash
-python crawl_edusoft.py --commit       # Tự động git commit & push lên GitHub Pages không cần hỏi lại
-python crawl_edusoft.py --csv Sem1.csv # Chỉ định tên file CSV xuất ra
-python crawl_edusoft.py --no-filter    # Cào thô toàn bộ (không lọc bỏ Online/Lab/GDTC)
-python crawl_edusoft.py --no-js        # Chỉ xuất file CSV, không cập nhật assets/data.js
-```
-
-### 🛡️ Tính an toàn, Chốt chặn bảo vệ & Sao lưu:
-- **Bảo vệ Bus Factor = 0:** Người kế thừa dùng tài khoản Edusoft của chính họ. Không lưu trữ mật khẩu, không phụ thuộc vào tài khoản của tác giả cũ.
-- **Chốt chặn Data Validation:** Tự động kiểm tra chất lượng dữ liệu cào về (tối thiểu 10 khoa, 50 môn học, 20 phòng học thực tế). Nếu trường đổi giao diện HTML hoặc dữ liệu rỗng, tool sẽ **lập tức hủy bỏ** để bảo vệ website production không bị trắng trang.
-- **Tự động sao lưu xoay vòng (Rotating Backups):** Mỗi lần cập nhật thành công, file `assets/data.js` cũ sẽ được tự động lưu vào thư mục `backups/data_YYYY-MM-DD_HHMMSS.js` (tự động giữ 5 bản sao lưu mới nhất để rollback khi cần).
-- **Lưu phiên Chrome chuẩn Windows:** Lưu cookie phiên làm việc tại `%LOCALAPPDATA%\IU-Room-Checker\chrome_profile` giúp không làm bẩn thư mục Git và không bị xung đột tài khoản.
+1. **Mở file CSV:** Nhấp chuột phải vào file `.csv` $\to$ chọn **Open with** $\to$ **Notepad** (hoặc bất kỳ trình soạn thảo văn bản nào).
+2. **Copy toàn bộ dữ liệu:** Nhấn tổ hợp phím **`Ctrl + A`** (chọn tất cả nội dung) $\to$ nhấn **`Ctrl + C`** (sao chép).
+3. **Mở file data của website:** Mở file **`assets/data.js`** bằng **Notepad**.
+4. **Dán đè nội dung:** Dán toàn bộ nội dung vừa copy vào **bên trong cặp dấu nháy xiên (\`)** của biến `const csvData`, như hình mẫu dưới đây:
+   ```javascript
+   // 📌 assets/data.js
+   const csvData = `
+   Mã MHBĐ,Mã MH,Tên môn học,NMH,TTH,STC,STCHP,Mã lớp,Sĩ số,CL,TH,Thứ,Tiết BD,ST,Phòng,Giảng viên,TG học,
+   ,BA005IU,BA005IU,Financial Accounting,01,,3,3,FAAC25IU01,50,Hết,,Hai,7,3,A2.301,T.D.Khiêm,07/09/2026--27/12/2026
+   ... (toàn bộ nội dung file CSV của bạn dán tại đây)
+   `;
+   ```
+5. **Lưu file:** Nhấn **`Ctrl + S`** để lưu file `assets/data.js`.
+6. **Đẩy lên website:** Chạy lệnh Git để đưa lên GitHub Pages:
+   ```bash
+   git add assets/data.js Sem_current.csv
+   git commit -m "Update schedule data for new semester"
+   git push origin main
+   ```
+   Website sẽ tự động cập nhật dữ liệu mới sau 1 - 2 phút!
 
 ---
 
-## 4. Cấu trúc thư mục dự án
-
-Dự án được cấu trúc theo mô hình 3 tầng rõ ràng:
+## 📁 3. Cấu trúc thư mục dự án
 
 ```text
 TimPhongTrong/
 │
-├── crawl_edusoft.exe        # 🚀 File thực thi Standalone (chạy ngay, không cần cài Python)
-├── run_crawler.bat         # ⚡ File Batch 1-click khởi chạy crawler
-├── index.html              # 🌐 Giao diện chính của ứng dụng web tra cứu phòng trống
-├── README.md               # 📖 Tài liệu tổng quan dự án
+├── crawl_edusoft.exe        # 🚀 Tool tự động cập nhật 1-click (chạy ngay, không cần cài Python)
+├── run_crawler.bat         # ⚡ File chạy nhanh dự phòng
+├── index.html              # 🌐 Giao diện chính của trang web
+├── README.md               # 📖 Tài liệu hướng dẫn bạn đang đọc
 │
-├── crawler/                # 🛠️ Tầng mã nguồn thu thập dữ liệu (Developer Source)
-│   ├── crawl_edusoft.py    # Source Python v1.0.0 (Data Validation + Rotating Backups)
-│   ├── requirements.txt    # Danh sách thư viện (selenium, beautifulsoup4, pyinstaller)
-│   ├── version_info.txt    # Windows PE Metadata chống false-positive virus Defender
-│   └── build.bat           # Script 1-click đóng gói lại file .exe sau khi sửa code
+├── assets/
+│   ├── data.js             # 📦 Nơi chứa chuỗi dữ liệu thời khóa biểu (const csvData)
+│   ├── script.js           # ⚙️ Logic xử lý tìm kiếm và lọc phòng trống
+│   └── styles.css          # 🎨 Giao diện và màu sắc trang web
 │
-├── docs/                   # 📚 Tài liệu vận hành & kế thừa
-│   └── MAINTENANCE.md      # Sổ tay duy trì 5 phút (Bus Factor = 0, DOM specs, Troubleshooting)
+├── crawler/                # 🛠️ Mã nguồn tool cào dữ liệu cho lập trình viên
+│   ├── crawl_edusoft.py    # Code Python v1.0.0 (kiểm tra an toàn & tự sao lưu)
+│   ├── requirements.txt    # Danh sách thư viện cần thiết
+│   └── build.bat           # Script 1-click đóng gói lại file .exe khi sửa code
 │
-├── backups/                # 💾 Lưu trữ 5 bản sao lưu xoay vòng của assets/data.js
+├── docs/
+│   └── MAINTENANCE.md      # 📖 Sổ tay chi tiết dành cho các bạn duy trì tiếp theo (Bus Factor = 0)
 │
-├── assets/                 # 🌐 Tài nguyên tĩnh của ứng dụng web
-│   ├── data.js             # Dữ liệu thời khóa biểu được nhúng trực tiếp
-│   ├── script.js           # Logic tìm kiếm, lọc và phân loại phòng khả dụng
-│   └── styles.css          # Bố cục giao diện Responsive & CSS animations
-│
-├── Sem_current.csv         # 📊 Dataset lịch học CSV mới nhất
-└── Sem1_2627.csv           # 📊 Dataset lịch học mẫu Học kỳ 1 (2026-2027)
+├── backups/                # 💾 Nơi tự động lưu 5 bản sao lưu gần nhất của data.js
+└── Sem_current.csv         # 📊 File CSV thời khóa biểu học kỳ hiện tại
 ```
 
 ---
 
-## 5. Quy trình thủ công cũ (Excel + VBA) [Lưu trữ]
+## 💡 4. Một số lưu ý khi tìm phòng tại trường
+
+- **Dữ liệu mang tính tham khảo:** Dữ liệu được bóc tách từ cổng đào tạo EdusoftWeb của trường, do đó **không bao gồm** các lớp Tiếng Anh tăng cường (Intensive English - IE), các kỳ thi đột xuất, hoặc các sự kiện/hội thảo được CLB/Khoa đặt phòng riêng tại Phòng Đào tạo (OAA).
+- **Mẹo tìm phòng:** Nếu đến cửa phòng thấy khóa, bạn có thể ngó xem các phòng cùng dãy lân cận có phòng nào đang mở sáng đèn hoặc nhờ các chú bảo vệ trực tầng hỗ trợ nhé.
+- **Đóng góp phát triển:** Đây là dự án nhỏ phi lợi nhuận phục vụ cộng đồng sinh viên IU. Mọi ý kiến đóng góp, báo lỗi hoặc chia sẻ bạn cứ liên hệ qua [Facebook Datnim](https://www.facebook.com/nimdat) nhé!
+
+---
 
 <details>
-<summary><b>Nhấn vào đây để xem lại quy trình thu thập dữ liệu bằng tay trước đây</b></summary>
+<summary><b>📦 Bấm vào đây để xem lại quy trình thủ công cũ (Excel + VBA) [Lưu trữ]</b></summary>
 
-Trước khi có tool tự động `crawl_edusoft.py`, dữ liệu được thu thập qua quy trình thủ công sau:
-
-1. **Copy dữ liệu:** Truy cập `EDUSOFT` > `Đăng Ký Môn Học` > `Hiển Thị Điều Kiện Lọc` > `Chọn Khoa` > Bôi đen copy hết các môn trong từng khoa.  
-   ![Edusoft Filter](https://github.com/user-attachments/assets/ed0616e9-d5fb-4247-a245-f4f01ad4a1d5)
-
-2. **Dán vào Excel:** Paste tất cả các môn của tất cả các khoa vào file Excel (`.xlsx`), align lại các cột, xóa bỏ các dòng lớp `ONLINE` và `PHYSICAL TRAINING`.
-
-3. **Chạy Macro VBA để Unmerge ô:**  
-   - Nhấn `Alt + F11` trong Excel > `Insert` > `Module`.  
-   - Dán đoạn mã VBA sau và nhấn `F5` để chạy:
-
+Trước khi có tool tự động `crawl_edusoft.exe`, dữ liệu từng được thu thập thủ công qua các bước:
+1. Vào EdusoftWeb > Đăng ký môn học > Bật điều kiện lọc > Chọn từng Khoa > Copy bảng môn học.
+2. Dán vào Excel (`.xlsx`), căn chỉnh cột, xóa các dòng môn Online và Thể dục.
+3. Chạy đoạn macro VBA sau để unmerge ô và xóa dòng trùng:
    ```vba
    Sub UnMergeFill()
        Dim cell As Range, joinedCells As Range
@@ -159,26 +129,12 @@ Trước khi có tool tự động `crawl_edusoft.py`, dữ liệu được thu 
        lastRow = ws.Cells(Rows.Count, 1).End(xlUp).Row
        lastCol = ws.Cells(1, Columns.Count).End(xlToLeft).Column
 
-       Set rng = ws.Range(ws.Cells(1, 2), ws.Cells(lastRow, lastCol)) ' Excluding column A
-
+       Set rng = ws.Range(ws.Cells(1, 2), ws.Cells(lastRow, lastCol))
        rng.RemoveDuplicates Columns:=Application.WorksheetFunction.Transpose(Evaluate("ROW(1:" & lastCol - 1 & ")")), Header:=xlYes
 
        ws.Columns(1).Delete Shift:=xlToLeft
    End Sub
    ```
-
-4. **Xuất CSV UTF-8:** Lưu file Excel dưới dạng `CSV UTF-8 (Comma delimited) (*.csv)`.  
-   ![Save CSV](https://github.com/user-attachments/assets/cbe41c84-aaf6-4cf4-822c-408ebd415e66)
-
-5. **Cập nhật web:** Mở file CSV bằng Notepad, copy toàn bộ nội dung và dán vào biến `const csvData = \`...\`;` trong file `assets/data.js`.  
-   ![Update data.js](https://github.com/user-attachments/assets/db8e70a1-d3db-4ae8-8ac5-3bfd0e8b147d)
-
+4. Lưu file dưới dạng `CSV UTF-8 (Comma delimited) (*.csv)`.
+5. Mở file CSV bằng Notepad, copy toàn bộ rồi dán vào biến `const csvData = \`...\`;` trong `assets/data.js`.
 </details>
-
----
-
-## 6. Lưu ý & Miễn trừ trách nhiệm
-
-- ⚠️ **Dữ liệu tham khảo:** Dữ liệu thời khóa biểu được bóc tách từ cổng đào tạo sinh viên EdusoftWeb của trường. Dữ liệu này **không bao gồm** các lớp tiếng Anh tăng cường (Intensive English - IE), các kỳ thi đột xuất, các buổi sinh hoạt chuyên đề hoặc sự kiện được phòng ban/câu lạc bộ đặt phòng riêng tại Phòng Đào tạo (OAA).
-- 💡 **Mẹo khi sử dụng phòng:** Nếu đến cửa phòng thấy khóa, bạn có thể kiểm tra xem xung quanh có phòng nào khác đang mở sáng đèn hoặc liên hệ các chú bảo vệ trực tầng để hỗ trợ mở cửa nếu được phép.
-- 🤝 **Đóng góp:** Đây là dự án cá nhân phi lợi nhuận nhằm hỗ trợ cộng đồng sinh viên IU. Mọi ý kiến đóng góp, báo lỗi hoặc yêu cầu cải tiến giao diện đều rất được hoan nghênh qua [Facebook cá nhân](https://www.facebook.com/nimdat) hoặc gửi Pull Request trực tiếp trên GitHub.
